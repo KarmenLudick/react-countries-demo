@@ -11,6 +11,7 @@ function App() {
   // data state to store the Countries data. Its initial value is an empty array    
   const [rowdata, setRowData] = useState([]);
   const [selected] = useState([]);
+  const [searchSelected] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   
     // Using useEffect to call the API once mounted and set the data
@@ -29,7 +30,8 @@ function App() {
               <div style={{'text-align':'center'}}>
                 <Checkbox 
                 value={row.row.id} 
-                onChange={onSelectChange}/>
+                onChange={onSelectChange}
+                defaultChecked={selected.includes(row.row.original.code)}/>
               </div>)}
             },
         {
@@ -64,16 +66,16 @@ function App() {
 
     // Update the rowData and FilteredData state when search input entered
     const onSearchbarChange = (e) => {
-        const value = e.target.value.toLowerCase();
+        const value = e.target.value.toLowerCase().trim();
 
         if (value === "") {
             setFilteredData(rowdata);
         } else {
           if (filteredData.length > 0) {          
-            const result = filteredData.filter((item) => item.name.toLowerCase().includes(value));
+            const result = filteredData.filter((item) => item.name.toLowerCase().trim().includes(value));
             setFilteredData(result);
           } else {
-            const result = rowdata.filter((item) => item.name.toLowerCase().includes(value));
+            const result = rowdata.filter((item) => item.name.toLowerCase().trim().includes(value));
             setFilteredData(result);
           }
         }
@@ -85,7 +87,7 @@ function App() {
             alert(selected);
         }else{
             alert('No Itmes Selected.');
-        }
+        } 
     };
     
     return (
