@@ -73,9 +73,18 @@ function App() {
         } else {
           if (filteredData.length > 0) {          
             const result = filteredData.filter((item) => item.name.toLowerCase().trim().includes(value));
-            setFilteredData(result);
+            if(result.length > 0){
+                setFilteredData(result);
+            }else{
+                setFilteredData([{name: 'No Result', code: ''}]);
+            }
           } else {
             const result = rowdata.filter((item) => item.name.toLowerCase().trim().includes(value));
+            if(result.length > 0){
+                setFilteredData(result);
+            }else{
+                setFilteredData([{name: 'No Result', code: ''}]);
+            }
             setFilteredData(result);
           }
         }
